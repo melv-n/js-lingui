@@ -263,6 +263,23 @@ describe("I18n", () => {
     ).toEqual("Mi 'nombre' es {name}")
   })
 
+  it("._ should not trim whitespaces in translated messages", () => {
+    const messages = {}
+
+    const i18n = setupI18n({
+      locale: "es",
+      messages: { es: messages },
+    })
+
+    expect(
+      i18n._({
+        id: "msg",
+        /* note the space at the end */
+        message: " Hello ",
+      })
+    ).toEqual(" Hello ")
+  })
+
   it("._ shouldn't compile uncompiled messages in production", () => {
     const messages = {
       Hello: "Salut",
